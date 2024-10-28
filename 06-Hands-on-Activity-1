@@ -1,0 +1,171 @@
+import java.util.Scanner;
+
+class Person {
+    private String name;
+    private String contactNum;
+
+    public void setName(String n) {
+        this.name = n;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setContactNum(String c) {
+        this.contactNum = c;
+    }
+
+    public String getContactNum() {
+        return this.contactNum;
+    }
+}
+
+class Employee extends Person {
+    private double salary;
+    private String department;
+
+    public void setSalary(double s) {
+        this.salary = s;
+    }
+
+    public double getSalary() {
+        return this.salary;
+    }
+
+    public void setDepartment(String d) {
+        this.department = d;
+    }
+
+    public String getDepartment() {
+        return this.department;
+    }
+}
+
+class Student extends Person {
+    private String program;
+    private int yearLevel;
+
+    public void setProgram(String p) {
+        this.program = p;
+    }
+
+    public String getProgram() {
+        return this.program;
+    }
+
+    public void setYearLevel(int y) {
+        this.yearLevel = y;
+    }
+
+    public int getYearLevel() {
+        return this.yearLevel;
+    }
+}
+
+class Faculty extends Person {
+    private boolean status;
+
+    public void setStatus(boolean s) {
+        this.status = s;
+    }
+
+    public boolean isRegular() {
+        return this.status;
+    }
+}
+
+public class CollegeList {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Press E for Employee, F for Faculty, or S for Student: ");
+        char type = scanner.next().charAt(0);
+        scanner.nextLine();
+
+        if (type == 'E' || type == 'e') {
+            Employee employee = new Employee();
+
+            System.out.println("Type the employee's name, contact number, salary, and department.");
+            System.out.println("Press enter after every input.");
+
+            System.out.print("Name: ");
+            employee.setName(scanner.nextLine());
+
+            System.out.print("Contact Number: ");
+            employee.setContactNum(scanner.nextLine());
+
+            System.out.print("Salary: ");
+            employee.setSalary(scanner.nextDouble());
+            scanner.nextLine();
+
+            System.out.print("Department: ");
+            employee.setDepartment(scanner.nextLine());
+
+            System.out.println("-----------------------------------------");
+            System.out.println("Name: " + employee.getName());
+            System.out.println("Contact Number: " + employee.getContactNum());
+            System.out.println("Salary: " + employee.getSalary());
+            System.out.println("Department: " + employee.getDepartment());
+
+        } else if (type == 'F' || type == 'f') {
+            Faculty faculty = new Faculty();
+
+            System.out.println("Type the faculty's name, contact number, salary, and department.");
+            System.out.println("Press enter after every input.");
+
+            System.out.print("Name: ");
+            faculty.setName(scanner.nextLine());
+
+            System.out.print("Contact Number: ");
+            faculty.setContactNum(scanner.nextLine());
+
+            System.out.print("Salary: ");
+            double salary = scanner.nextDouble();
+            scanner.nextLine(); 
+
+            System.out.print("Department: ");
+            String department = scanner.nextLine();
+
+            System.out.print("Is the faculty member regular/tenured? (Y/N): ");
+            char isRegular = scanner.next().charAt(0);
+            faculty.setStatus(isRegular == 'Y' || isRegular == 'y');
+
+            System.out.println("-----------------------------------------");
+            System.out.println("Name: " + faculty.getName());
+            System.out.println("Contact Number: " + faculty.getContactNum());
+            System.out.println("Salary: " + salary);
+            System.out.println("Department: " + department);
+            System.out.println("Status: " + (faculty.isRegular() ? "Regular" : "Not Regular"));
+
+        } else if (type == 'S' || type == 's') {
+            Student student = new Student();
+
+            System.out.println("Type the student's name, contact number, program, and year level.");
+            System.out.println("Press enter after every input.");
+
+            System.out.print("Name: ");
+            student.setName(scanner.nextLine());
+
+            System.out.print("Contact Number: ");
+            student.setContactNum(scanner.nextLine());
+
+            System.out.print("Program: ");
+            student.setProgram(scanner.nextLine());
+
+            System.out.print("Year Level: ");
+            student.setYearLevel(scanner.nextInt());
+
+            System.out.println("-----------------------------------------");
+            System.out.println("Name: " + student.getName());
+            System.out.println("Contact Number: " + student.getContactNum());
+            System.out.println("Program: " + student.getProgram());
+            System.out.println("Year Level: " + student.getYearLevel());
+
+        } else {
+            System.out.println("Invalid selection.");
+        }
+
+        scanner.close();
+    }
+}
