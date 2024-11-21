@@ -1,0 +1,17 @@
+interface HasWings { 
+	public int getNumberOfWings(); 
+} 
+
+abstract class Insect implements HasWings {  
+	abstract int getNumberOfLegs(); 
+} 
+
+public class Dragonfly extends Insect { 
+	int getNumberOfLegs() { 
+		return 6; 
+	} 
+
+	public int getNumberOfWings() { 
+		return 2; 
+	} 
+}
