@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+interface Playable {
+    void startPlaying();
+}
+
+interface GameMode {
+    void startStory();
+    void startSurvival();
+}
+
+interface User {
+    void enterName();
+    void chooseGameMode();
+}
+
+public class TextBasedGame implements Playable, GameMode, User {
+    private String userName;
+    private int gameModeChoice;
+    public void enterName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        userName = scanner.nextLine();
+        System.out.println("Welcome, " + userName + "!");
+    }
+
+    public void chooseGameMode() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Press 1 or 2 to select your game mode.");
+        System.out.println("1 - Story");
+        System.out.println("2 - Survival");
+        System.out.print("Choose your mode: ");
+        gameModeChoice = scanner.nextInt();
+    }
+
+    public void startPlaying() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Press P to start playing, " + userName + ".");
+        char startGame = scanner.next().charAt(0);
+        if (startGame == 'P' || startGame == 'p') {
+            if (gameModeChoice == 1) {
+                startStory();
+            } else if (gameModeChoice == 2) {
+                startSurvival();
+            }
+        }
+    }
+
+    public void startStory() {
+        System.out.println("Starting Story Mode...");
+    }
+
+    public void startSurvival() {
+        System.out.println("Starting Survival Mode...");
+    }
+
+    public static void main(String[] args) {
+        TextBasedGame game = new TextBasedGame();
+        game.enterName();
+        game.chooseGameMode();
+        game.startPlaying();
+    }
+}
