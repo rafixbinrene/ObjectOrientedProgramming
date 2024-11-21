@@ -1,0 +1,39 @@
+import java.util.Scanner;
+import java.time.LocalTime;
+
+interface Alarm {
+    void setAlarm(String time);
+    void showAlarm(String time);
+}
+
+abstract class Weekday implements Alarm {
+}
+
+public class Monday extends Weekday {
+    
+    @Override
+    public void setAlarm(String time) {
+    }
+
+    @Override
+    public void showAlarm(String time) {
+        LocalTime alarm = LocalTime.parse(time); 
+        LocalTime now = LocalTime.now();  
+
+        if (alarm.isAfter(now)) {
+            System.out.println("I'll wake you up later!");
+        } else {
+            System.out.println("Alarm is set for tomorrow!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Monday monday = new Monday();
+        
+        System.out.print("Enter the time for the alarm (HH:mm): ");
+        String time = scanner.nextLine();
+        
+        monday.showAlarm(time); 
+    }
+}
