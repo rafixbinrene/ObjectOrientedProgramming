@@ -1,0 +1,56 @@
+import java.util.Scanner;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+interface Alarm {
+    void setAlarm(String time);
+    void showAlarm(String time);
+}
+
+abstract class Weekday implements Alarm {
+}
+
+public class Monday extends Weekday {
+
+    @Override
+    public void setAlarm(String time) {
+    }
+
+    @Override
+    public void showAlarm(String time) {
+        try {
+            LocalTime alarm = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime now = LocalTime.now();
+
+            if (alarm.isAfter(now)) {
+                System.out.println("I'll wake you up later!");
+            } else {
+                System.out.println("Alarm is set for tomorrow!");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid time format. Please enter the time in HH:mm format.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Monday monday = new Monday();
+
+        while (true) {
+            System.out.print("Enter the time for the alarm (HH:mm): ");
+            String time = scanner.nextLine();
+
+            try {
+                // Input Validation
+                LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+                monday.showAlarm(time);
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid time format. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
