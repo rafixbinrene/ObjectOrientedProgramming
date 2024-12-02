@@ -17,32 +17,61 @@ interface User {
 public class TextBasedGame implements Playable, GameMode, User {
     private String userName;
     private int gameModeChoice;
+
     public void enterName() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your name: ");
-        userName = scanner.nextLine();
-        System.out.println("Welcome, " + userName + "!");
+        boolean isValidName = false;
+
+        while (!isValidName) {
+            System.out.print("Enter your name (letters only): ");
+            userName = scanner.nextLine();
+
+            if (userName.matches("[a-zA-Z]+")) { // Ensure only letters
+                isValidName = true;
+                System.out.println("Welcome, " + userName + "!");
+            } else {
+                System.out.println("Invalid name. Please use letters only.");
+            }
+        }
     }
 
     public void chooseGameMode() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Press 1 or 2 to select your game mode.");
-        System.out.println("1 - Story");
-        System.out.println("2 - Survival");
-        System.out.print("Choose your mode: ");
-        gameModeChoice = scanner.nextInt();
+        boolean isValidChoice = false;
+
+        while (!isValidChoice) {
+            System.out.println("Press 1 or 2 to select your game mode.");
+            System.out.println("1 - Story");
+            System.out.println("2 - Survival");
+            System.out.print("Choose your mode: ");
+
+            if (scanner.hasNextInt()) {
+                gameModeChoice = scanner.nextInt();
+                if (gameModeChoice == 1 || gameModeChoice == 2) {
+                    isValidChoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Clear invalid input
+            }
+        }
     }
 
     public void startPlaying() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Press P to start playing, " + userName + ".");
         char startGame = scanner.next().charAt(0);
+
         if (startGame == 'P' || startGame == 'p') {
             if (gameModeChoice == 1) {
                 startStory();
             } else if (gameModeChoice == 2) {
                 startSurvival();
             }
+        } else {
+            System.out.println("Invalid input. Exiting game.");
         }
     }
 
